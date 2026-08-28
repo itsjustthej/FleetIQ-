@@ -28,3 +28,6 @@ Open `index.html` in any modern browser.
 5. Save and open the generated Pages URL.
 
 > This is an educational/demo website created to demonstrate AI-assisted website generation. Dashboard figures are illustrative.
+
+## Design update
+The interface uses a navy + teal technology palette and an inline SVG FleetIQ route logo, so no image/assets folder is required.
