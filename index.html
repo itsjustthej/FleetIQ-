@@ -49,7 +49,7 @@
   <!-- HERO -->
   <section id="home" class="hero">
     <div class="hero-copy">
-      <div class="eyebrow">AI-POWERED FOOD &amp; GROCERY DELIVERY</div>
+      <div class="greet" id="greetLine">DELIVER TO <b>Koramangala</b> · Good afternoon, <span id="userNameHero">Thejas</span></div>
       <h1>Craving something?<br><em>Let FleetIQ find it.</em></h1>
       <p>One smart marketplace for restaurants, everyday groceries, and local stores &mdash; matched to you by an AI that actually gets your taste.</p>
 
@@ -65,28 +65,18 @@
         <button class="primary-btn" type="submit">Find food <span>→</span></button>
       </form>
 
-      <div class="chip-row" aria-label="Quick categories">
-        <a href="#explore" class="chip">🍔 Burgers</a>
-        <a href="#explore" class="chip">🍕 Pizza</a>
-        <a href="#explore" class="chip">🍣 Sushi</a>
-        <a href="#grocery" class="chip">🥦 Groceries</a>
-        <a href="#explore" class="chip">🍰 Desserts</a>
-      </div>
-
       <div class="trust-row">
-        <div><strong>50K+</strong><small>Meals delivered</small></div>
-        <div><strong>4.8★</strong><small>Average rating</small></div>
-        <div><strong>25 min</strong><small>Average delivery</small></div>
+        <div><strong class="counter" data-target="50" data-suffix="K+">0</strong><small>Meals delivered</small></div>
+        <div><strong class="counter" data-target="4.8" data-suffix="★" data-decimal="1">0</strong><small>Average rating</small></div>
+        <div><strong class="counter" data-target="25" data-suffix=" min">0</strong><small>Average delivery</small></div>
       </div>
     </div>
 
     <div class="hero-visual">
       <div class="hero-card main-card">
-        <div class="hc-top">
-          <span class="pill sage">20% OFF</span>
-          <span class="hc-fav">♥</span>
-        </div>
-        <div class="hc-emoji">🍔</div>
+        <img class="hc-photo" src="https://images.unsplash.com/photo-1636907229111-a8ac768fe6c9?q=80&w=800&auto=format&fit=crop" alt="Cheeseburger and fries" loading="lazy">
+        <button class="fav-btn" data-fav aria-label="Save to favourites">♥</button>
+        <span class="pill sage corner-pill">20% OFF</span>
         <div class="hc-body">
           <b>Burger House</b>
           <span class="rating">⭐ 4.8 <i>(2.1k)</i></span>
@@ -94,7 +84,7 @@
         </div>
       </div>
       <div class="hero-card float-card fc1">
-        <div class="hc-emoji sm">🍓</div>
+        <img class="fc-photo" src="https://images.unsplash.com/photo-1565032156168-0a22e5b8374f?q=80&w=300&auto=format&fit=crop" alt="Fresh strawberries" loading="lazy">
         <div>
           <b>Fresh Strawberries</b>
           <span class="price"><s>₹179</s> ₹149</span>
@@ -119,42 +109,57 @@
       <p>Every cuisine your street has to offer, sorted by what's fast, what's loved, and what's on offer today.</p>
     </div>
 
-    <div class="cat-row">
-      <div class="cat-pill active">🍔<span>Burgers</span></div>
-      <div class="cat-pill">🍕<span>Pizza</span></div>
-      <div class="cat-pill">🍣<span>Sushi</span></div>
-      <div class="cat-pill">🍜<span>Asian</span></div>
-      <div class="cat-pill">🥗<span>Healthy</span></div>
-      <div class="cat-pill">🍰<span>Desserts</span></div>
+    <div class="cat-row" id="catRow">
+      <button class="cat-pill active" data-filter="all"><span class="cat-icon">🍽️</span><span>All</span></button>
+      <button class="cat-pill" data-filter="burgers"><span class="cat-icon">🍔</span><span>Burgers</span></button>
+      <button class="cat-pill" data-filter="pizza"><span class="cat-icon">🍕</span><span>Pizza</span></button>
+      <button class="cat-pill" data-filter="asian"><span class="cat-icon">🍜</span><span>Asian</span></button>
+      <button class="cat-pill" data-filter="healthy"><span class="cat-icon">🥗</span><span>Healthy</span></button>
     </div>
 
-    <div class="cards restaurant-grid">
-      <article class="rest-card">
-        <div class="rest-thumb warm"><span>🍔</span><span class="pill coral corner">20% OFF</span></div>
+    <div class="cards restaurant-grid" id="restaurantGrid">
+      <article class="rest-card" data-category="burgers">
+        <div class="rest-thumb">
+          <img src="https://images.unsplash.com/photo-1636907229111-a8ac768fe6c9?q=80&w=500&auto=format&fit=crop" alt="Cheeseburger with fries" loading="lazy">
+          <span class="pill coral corner">20% OFF</span>
+          <button class="fav-btn" data-fav aria-label="Save to favourites">♥</button>
+        </div>
         <div class="rest-info">
           <div class="rest-top"><b>Burger House</b><span class="rating">⭐ 4.8</span></div>
           <small>Burgers · American</small>
           <div class="rest-meta"><span>🕐 25&ndash;30 min</span><span>₹₹</span></div>
         </div>
       </article>
-      <article class="rest-card">
-        <div class="rest-thumb gold"><span>🍕</span><span class="pill sage corner">Free delivery</span></div>
+      <article class="rest-card" data-category="pizza">
+        <div class="rest-thumb">
+          <img src="https://images.unsplash.com/photo-1588014164218-d9ecba01aaff?q=80&w=500&auto=format&fit=crop" alt="Margherita pizza" loading="lazy">
+          <span class="pill sage corner">Free delivery</span>
+          <button class="fav-btn" data-fav aria-label="Save to favourites">♥</button>
+        </div>
         <div class="rest-info">
           <div class="rest-top"><b>Napoli Pizza Co.</b><span class="rating">⭐ 4.7</span></div>
           <small>Pizza · Italian</small>
           <div class="rest-meta"><span>🕐 30&ndash;35 min</span><span>₹₹₹</span></div>
         </div>
       </article>
-      <article class="rest-card">
-        <div class="rest-thumb sage-bg"><span>🍜</span><span class="pill coral corner">New</span></div>
+      <article class="rest-card" data-category="asian">
+        <div class="rest-thumb">
+          <img src="https://images.unsplash.com/photo-1633271332313-04df64c0105b?q=80&w=500&auto=format&fit=crop" alt="Asian noodle bowl" loading="lazy">
+          <span class="pill coral corner">New</span>
+          <button class="fav-btn" data-fav aria-label="Save to favourites">♥</button>
+        </div>
         <div class="rest-info">
           <div class="rest-top"><b>Wok This Way</b><span class="rating">⭐ 4.9</span></div>
           <small>Asian · Noodles</small>
           <div class="rest-meta"><span>🕐 20&ndash;25 min</span><span>₹₹</span></div>
         </div>
       </article>
-      <article class="rest-card">
-        <div class="rest-thumb warm"><span>🥗</span><span class="pill sage corner">Healthy pick</span></div>
+      <article class="rest-card" data-category="healthy">
+        <div class="rest-thumb">
+          <img src="https://images.unsplash.com/photo-1618839851956-b5280e86677a?q=80&w=500&auto=format&fit=crop" alt="Healthy poke salad bowl" loading="lazy">
+          <span class="pill sage corner">Healthy pick</span>
+          <button class="fav-btn" data-fav aria-label="Save to favourites">♥</button>
+        </div>
         <div class="rest-info">
           <div class="rest-top"><b>Green Bowl Co.</b><span class="rating">⭐ 4.6</span></div>
           <small>Healthy · Salads</small>
@@ -184,37 +189,37 @@
 
       <div class="grocery-grid">
         <article class="prod-card">
-          <div class="prod-thumb">🍓</div>
+          <div class="prod-thumb"><img src="https://images.unsplash.com/photo-1565032156168-0a22e5b8374f?q=80&w=400&auto=format&fit=crop" alt="Fresh strawberries" loading="lazy"></div>
           <b>Fresh Strawberries</b>
           <small>500g pack</small>
           <div class="prod-bottom"><span class="price"><s>₹179</s> ₹149</span><button class="add-btn" data-item="Fresh Strawberries" data-price="149">+</button></div>
         </article>
         <article class="prod-card">
-          <div class="prod-thumb">🥑</div>
+          <div class="prod-thumb"><img src="https://images.unsplash.com/photo-1704960961659-965d9d581448?q=80&w=400&auto=format&fit=crop" alt="Avocados" loading="lazy"></div>
           <b>Avocados</b>
           <small>Pack of 4</small>
           <div class="prod-bottom"><span class="price">₹219</span><button class="add-btn" data-item="Avocados" data-price="219">+</button></div>
         </article>
         <article class="prod-card">
-          <div class="prod-thumb">🥛</div>
+          <div class="prod-thumb"><img src="https://images.unsplash.com/photo-1601436423474-51738541c1b1?q=80&w=400&auto=format&fit=crop" alt="Farm fresh milk bottle" loading="lazy"></div>
           <b>Farm Fresh Milk</b>
           <small>1 litre</small>
           <div class="prod-bottom"><span class="price">₹68</span><button class="add-btn" data-item="Farm Fresh Milk" data-price="68">+</button></div>
         </article>
         <article class="prod-card">
-          <div class="prod-thumb">🍞</div>
+          <div class="prod-thumb"><img src="https://images.unsplash.com/photo-1537200275355-4f0c0714f777?q=80&w=400&auto=format&fit=crop" alt="Multigrain bread loaf" loading="lazy"></div>
           <b>Multigrain Bread</b>
           <small>400g loaf</small>
           <div class="prod-bottom"><span class="price"><s>₹65</s> ₹55</span><button class="add-btn" data-item="Multigrain Bread" data-price="55">+</button></div>
         </article>
         <article class="prod-card">
-          <div class="prod-thumb">🥕</div>
+          <div class="prod-thumb"><img src="https://images.unsplash.com/photo-1445282768818-728615cc910a?q=80&w=400&auto=format&fit=crop" alt="Fresh carrots" loading="lazy"></div>
           <b>Carrots</b>
           <small>1 kg</small>
           <div class="prod-bottom"><span class="price">₹42</span><button class="add-btn" data-item="Carrots" data-price="42">+</button></div>
         </article>
         <article class="prod-card">
-          <div class="prod-thumb">🧃</div>
+          <div class="prod-thumb"><img src="https://images.unsplash.com/photo-1588313783739-25a863bac48b?q=80&w=400&auto=format&fit=crop" alt="Cold-pressed juice" loading="lazy"></div>
           <b>Cold-pressed Juice</b>
           <small>750ml</small>
           <div class="prod-bottom"><span class="price"><s>₹199</s> ₹169</span><button class="add-btn" data-item="Cold-pressed Juice" data-price="169">+</button></div>
@@ -284,7 +289,7 @@
     </div>
 
     <div class="offers-grid">
-      <div class="offer-card big">
+      <div class="offer-card big" style="background-image:linear-gradient(120deg,rgba(226,67,42,.92),rgba(255,98,71,.75)),url('https://images.unsplash.com/photo-1636907229111-a8ac768fe6c9?q=80&w=900&auto=format&fit=crop')">
         <span class="eyebrow light">WEEKEND FEAST</span>
         <h3>Up to 50% OFF</h3>
         <p>On selected restaurants, this weekend only.</p>
@@ -311,10 +316,22 @@
       <p>Based on your recent orders and what's trending nearby.</p>
     </div>
     <div class="cards personal-row">
-      <article class="rest-card small"><div class="rest-thumb warm"><span>🌮</span></div><div class="rest-info"><div class="rest-top"><b>Mexican Tacos</b><span class="rating">⭐ 4.7</span></div><small>Casa Verde · 20 min</small></div></article>
-      <article class="rest-card small"><div class="rest-thumb gold"><span>🍱</span></div><div class="rest-info"><div class="rest-top"><b>Bento Box</b><span class="rating">⭐ 4.8</span></div><small>Sakura Kitchen · 28 min</small></div></article>
-      <article class="rest-card small"><div class="rest-thumb sage-bg"><span>🥙</span></div><div class="rest-info"><div class="rest-top"><b>Falafel Wrap</b><span class="rating">⭐ 4.6</span></div><small>Levant Street · 18 min</small></div></article>
-      <article class="rest-card small"><div class="rest-thumb warm"><span>🍩</span></div><div class="rest-info"><div class="rest-top"><b>Glazed Donuts</b><span class="rating">⭐ 4.9</span></div><small>Sugar &amp; Co · 22 min</small></div></article>
+      <article class="rest-card small">
+        <div class="rest-thumb"><img src="https://images.unsplash.com/photo-1648437595587-e6a8b0cdf1f9?q=80&w=400&auto=format&fit=crop" alt="Mexican street tacos" loading="lazy"><button class="fav-btn" data-fav aria-label="Save to favourites">♥</button></div>
+        <div class="rest-info"><div class="rest-top"><b>Mexican Tacos</b><span class="rating">⭐ 4.7</span></div><small>Casa Verde · 20 min</small></div>
+      </article>
+      <article class="rest-card small">
+        <div class="rest-thumb"><img src="https://images.unsplash.com/photo-1654220691430-97e1453c63f6?q=80&w=400&auto=format&fit=crop" alt="Sushi bento box" loading="lazy"><button class="fav-btn" data-fav aria-label="Save to favourites">♥</button></div>
+        <div class="rest-info"><div class="rest-top"><b>Bento Box</b><span class="rating">⭐ 4.8</span></div><small>Sakura Kitchen · 28 min</small></div>
+      </article>
+      <article class="rest-card small">
+        <div class="rest-thumb"><img src="https://images.unsplash.com/photo-1562059390-a761a084768e?q=80&w=400&auto=format&fit=crop" alt="Falafel wrap" loading="lazy"><button class="fav-btn" data-fav aria-label="Save to favourites">♥</button></div>
+        <div class="rest-info"><div class="rest-top"><b>Falafel Wrap</b><span class="rating">⭐ 4.6</span></div><small>Levant Street · 18 min</small></div>
+      </article>
+      <article class="rest-card small">
+        <div class="rest-thumb"><img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?q=80&w=400&auto=format&fit=crop" alt="Glazed donuts" loading="lazy"><button class="fav-btn" data-fav aria-label="Save to favourites">♥</button></div>
+        <div class="rest-info"><div class="rest-top"><b>Glazed Donuts</b><span class="rating">⭐ 4.9</span></div><small>Sugar &amp; Co · 22 min</small></div>
+      </article>
     </div>
   </section>
 
@@ -322,10 +339,10 @@
   <section class="impact">
     <div class="section-heading compact"><div class="eyebrow">THE FLEETIQ ADVANTAGE</div><h2>Trusted by <span>thousands, daily.</span></h2></div>
     <div class="impact-grid">
-      <div><strong>50K+</strong><span>Meals delivered</span></div>
-      <div><strong>4.8★</strong><span>Average rating</span></div>
-      <div><strong>25 min</strong><span>Average delivery</span></div>
-      <div><strong>10K+</strong><span>Products available</span></div>
+      <div><strong class="counter" data-target="50" data-suffix="K+">0</strong><span>Meals delivered</span></div>
+      <div><strong class="counter" data-target="4.8" data-suffix="★" data-decimal="1">0</strong><span>Average rating</span></div>
+      <div><strong class="counter" data-target="25" data-suffix=" min">0</strong><span>Average delivery</span></div>
+      <div><strong class="counter" data-target="10" data-suffix="K+">0</strong><span>Products available</span></div>
     </div>
   </section>
 
@@ -362,8 +379,17 @@
   <div class="footer-links">
     <a href="#explore">Food</a><a href="#grocery">Groceries</a><a href="#assistant">AI Assistant</a><a href="#offers">Offers</a><a href="#contact">Sign up</a>
   </div>
-  <small>© 2026 FleetIQ. Demo marketplace created for educational purposes.</small>
+  <small>© 2026 FleetIQ. Demo marketplace created for educational purposes. Food photography via Unsplash.</small>
 </footer>
+
+<!-- Mobile bottom tab bar -->
+<nav class="tab-bar" id="tabBar" aria-label="Primary">
+  <a href="#home" class="tab active" data-tab="home"><span class="tab-icon">🏠</span><span>Home</span></a>
+  <a href="#explore" class="tab" data-tab="explore"><span class="tab-icon">🔍</span><span>Search</span></a>
+  <a href="#grocery" class="tab tab-cart" data-tab="cart"><span class="tab-icon">🛒<span class="tab-cart-count" id="tabCartCount">0</span></span><span>Cart</span></a>
+  <a href="#offers" class="tab" data-tab="favs"><span class="tab-icon">♥</span><span>Favs</span></a>
+  <a href="#contact" class="tab" data-tab="profile"><span class="tab-icon">👤</span><span>Profile</span></a>
+</nav>
 
 <script src="script.js"></script>
 </body>
