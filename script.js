@@ -1,13 +1,13 @@
 // FleetIQ — Smart Food & Grocery Marketplace interactions
 
-/* Mobile nav toggle */
+/* Mobile nav toggle (desktop hamburger, sub-1000px) */
 const hamburger = document.getElementById('hamburger');
 const primaryNav = document.getElementById('primaryNav');
 if (hamburger && primaryNav) {
   hamburger.addEventListener('click', () => {
     const open = primaryNav.classList.toggle('open');
     if (open) {
-      primaryNav.style.cssText = 'display:flex;flex-direction:column;gap:18px;position:absolute;top:78px;left:0;right:0;background:var(--cream);padding:24px 7%;border-bottom:1px solid var(--line);';
+      primaryNav.style.cssText = 'display:flex;flex-direction:column;gap:18px;position:absolute;top:78px;left:0;right:0;background:var(--cream);padding:24px 7%;border-bottom:1px solid var(--line);z-index:39;';
     } else {
       primaryNav.removeAttribute('style');
     }
@@ -17,23 +17,78 @@ if (hamburger && primaryNav) {
   }));
 }
 
-/* Cart counter */
+/* Cart counter (syncs navbar + mobile tab bar) */
 let cartCount = 0;
 const cartCountEl = document.getElementById('cartCount');
+const tabCartCountEl = document.getElementById('tabCartCount');
+
+function bumpCartCount() {
+  cartCount += 1;
+  [cartCountEl, tabCartCountEl].forEach(el => {
+    if (!el) return;
+    el.textContent = cartCount;
+    el.classList.remove('bump');
+    void el.offsetWidth;
+    el.classList.add('bump');
+  });
+}
+
 document.querySelectorAll('.add-btn').forEach(btn => {
   btn.addEventListener('click', () => {
-    cartCount += 1;
-    if (cartCountEl) {
-      cartCountEl.textContent = cartCount;
-      cartCountEl.classList.remove('bump');
-      void cartCountEl.offsetWidth; // restart animation
-      cartCountEl.classList.add('bump');
-    }
+    bumpCartCount();
     const original = btn.textContent;
     btn.textContent = '✓';
     setTimeout(() => { btn.textContent = original; }, 900);
   });
 });
+
+/* Favourite hearts */
+document.querySelectorAll('[data-fav]').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    btn.classList.toggle('active');
+  });
+});
+
+/* Category filtering on Explore Food */
+const catButtons = document.querySelectorAll('.cat-pill');
+const restaurantCards = document.querySelectorAll('#restaurantGrid .rest-card');
+
+catButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    catButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    restaurantCards.forEach(card => {
+      const match = filter === 'all' || card.dataset.category === filter;
+      card.classList.toggle('hide', !match);
+    });
+  });
+});
+
+/* Animated stat counters (trigger once visible) */
+const counters = document.querySelectorAll('.counter');
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+    counterObserver.unobserve(el);
+    const target = parseFloat(el.dataset.target);
+    const suffix = el.dataset.suffix || '';
+    const decimals = parseInt(el.dataset.decimal || '0', 10);
+    const duration = 1100;
+    const start = performance.now();
+    function tick(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const value = target * eased;
+      el.textContent = value.toFixed(decimals) + suffix;
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  });
+}, { threshold: 0.4 });
+counters.forEach(c => counterObserver.observe(c));
 
 /* AI Food Assistant */
 const moodData = {
@@ -128,15 +183,42 @@ function renderTracker(stage) {
 
 renderTracker(trackerStage);
 
-const trackerTimer = setInterval(() => {
+setInterval(() => {
   trackerStage += 1;
-  if (trackerStage > 4) {
-    trackerStage = 0;
-  }
+  if (trackerStage > 4) trackerStage = 0;
   renderTracker(trackerStage);
 }, 3200);
 
-/* Smooth-scroll active nav state */
+/* Mobile bottom tab bar: highlight active section on scroll */
+const tabs = document.querySelectorAll('.tab-bar .tab');
+const tabTargets = {
+  home: document.getElementById('home'),
+  explore: document.getElementById('explore'),
+  cart: document.getElementById('grocery'),
+  favs: document.getElementById('offers'),
+  profile: document.getElementById('contact')
+};
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+  });
+});
+
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const id = entry.target.id;
+    const key = Object.keys(tabTargets).find(k => tabTargets[k] && tabTargets[k].id === id);
+    if (!key) return;
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.tab === key));
+  });
+}, { threshold: 0.5, rootMargin: '-40% 0px -40% 0px' });
+
+Object.values(tabTargets).forEach(el => { if (el) sectionObserver.observe(el); });
+
+/* Smooth-scroll active nav state (desktop) */
 document.querySelectorAll('a[href^="#"]').forEach(link => {
   link.addEventListener('click', () => {
     document.querySelectorAll('#primaryNav a').forEach(a => a.classList.remove('selected'));
